@@ -3,9 +3,9 @@ ruby:
 
 ol.breadcrumb.alert-warning
   li
-    = link_to "Processes", processes_path
+    = link_to "Procesos", processes_path
   li
-    = link_to "Process: #{@operation.process.title}", @operation.process
+    = link_to "Proceso: #{@operation.process.title}", @operation.process
   li.active
     = "Operation: #{@operation.title} "
 
@@ -16,7 +16,7 @@ ol.breadcrumb.alert-warning
     .panel
       .panel-heading
         h1.panel-title
-          = "Operation: #{@operation.title} "
+          = "Operación: #{@operation.title} "
           span.label.more-info-label class=(@operation.status[:class])
             = @operation.status[:text]
       .panel-body
@@ -25,37 +25,37 @@ ol.breadcrumb.alert-warning
             tbody
 
               tr
-                td Created At
+                td Fecha de creación
                 td = @operation.created_at
 
               tr
-                td Completed At
+                td Fecha de finalización
                 td = @operation.completed_at
 
               - if @operation.assigned_to.present?
                 tr
-                  td Assigned To
+                  td Asignado a
                   td = @operation.assigned_to
               tr
-                td Operation Template
+                td Template de operación
                 td = link_to @operation.template.title,
                              process_template_operation_template_path(@operation.template.process_template,
                                                                       @operation.template)
 
               - if child_process.present?
                 tr
-                  td Child Process
+                  td Procesos hijos
                   td
                     = link_to child_process
                       = child_process.title
                     span.label<> class=(child_process.status[:class])
                       = child_process.status[:text]
               tr
-                td Asynchronous
+                td Asíncrono
                 td = @operation.async
 
               tr
-                td Background
+                td Segundo plano
                 td = @operation.is_background
 
 
@@ -64,13 +64,13 @@ ol.breadcrumb.alert-warning
           - if @operation.show_dependencies.empty?
             .col-md-12
               strong
-                | No dependencies
+                | Sin dependencias
           - else
             table.table.table-striped.table-hover
               tbody
                 tr
                   td
-                    strong Satisfied Dependencies
+                    strong Dependencias
                 - @operation.show_dependencies.each do |dependency|
                   tr
                     td
@@ -96,14 +96,14 @@ ol.breadcrumb.alert-warning
       .btn-toolbar
         ul.nav.nav-pills
           li role="presentation" class="active"
-            = link_to "Back to Process", process_path(@operation.process)
+            = link_to "Regresar a los procesos", process_path(@operation.process)
 
 
 .row
   .col-md-10
     .panel
       .panel-heading
-        h1.panel-title Operation Context
+        h1.panel-title Contexto de operación
       .panel-body
         = render @operation.context.partial_name, { context: @operation.context }
 
@@ -119,10 +119,10 @@ ol.breadcrumb.alert-warning
               tbody
                 tr
                   td width="100"
-                    strong Created at
+                    strong Fecha de creación
                   td
                     .pull-right
-                      = button_to "Retry", retry_process_operation_error_path(@operation.process, @operation, error), class: "btn btn-warning", method: :put
+                      = button_to "Reintentar", retry_process_operation_error_path(@operation.process, @operation, error), class: "btn btn-warning", method: :put
                     = error.created_at
                 tr
                   td
